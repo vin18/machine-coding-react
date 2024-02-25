@@ -1,5 +1,3 @@
-// import Modal from "./components/modal/Modal";
-
 import {
   Tab,
   TabPanel,

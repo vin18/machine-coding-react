@@ -1,14 +1,9 @@
 /* eslint-disable react/prop-types */
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-  cloneElement,
-} from "react";
-import "./tabs.css";
+import { useEffect, useState, cloneElement } from "react";
 
-const TabsContext = createContext();
+import { TabsContext, useTabs } from "./TabsContext";
+
+import "./tabs.css";
 
 function Tabs({ defaultActive = "1", children }) {
   const [activeTab, setActiveTab] = useState(defaultActive);
@@ -28,7 +23,7 @@ function TabsHeader({ children }) {
 }
 
 function Tab({ children, id }) {
-  const { activeTab, setActiveTab } = useContext(TabsContext);
+  const { activeTab, setActiveTab } = useTabs(TabsContext);
   const isActive = activeTab == id;
 
   return (
@@ -43,7 +38,7 @@ function TabsContent({ children }) {
 }
 
 function TabPanel({ children, whenActive }) {
-  const { activeTab } = useContext(TabsContext);
+  const { activeTab } = useTabs(TabsContext);
   if (activeTab !== whenActive) return null;
   return <p className="tabs__tab-content">{children}</p>;
 }

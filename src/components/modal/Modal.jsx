@@ -1,21 +1,12 @@
 /* eslint-disable react/prop-types */
 
-import { cloneElement, createContext, useContext, useState } from "react";
+import { cloneElement, useState } from "react";
 import { createPortal } from "react-dom";
 
 import useOutsideClick from "../../hooks/useOutsideClick";
 
 import "./modal.css";
-
-const ModalContext = createContext();
-
-const useModal = () => {
-  const value = useContext(ModalContext);
-  if (!value) {
-    throw new Error(`useModal should be used within ModalContext`);
-  }
-  return value;
-};
+import { ModalContext, useModal } from "./ModalContext";
 
 const Modal = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
