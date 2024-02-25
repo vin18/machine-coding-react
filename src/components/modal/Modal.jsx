@@ -1,6 +1,11 @@
+/* eslint-disable react/prop-types */
+
 import { cloneElement, createContext, useContext, useState } from "react";
 import { createPortal } from "react-dom";
+
 import useOutsideClick from "../../hooks/useOutsideClick";
+
+import "./modal.css";
 
 const ModalContext = createContext();
 

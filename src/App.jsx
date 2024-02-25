@@ -1,26 +1,55 @@
-import Modal from "./components/modal/Modal";
+// import Modal from "./components/modal/Modal";
+
+import {
+  Tab,
+  TabPanel,
+  Tabs,
+  TabsContent,
+  TabsHeader,
+} from "./components/tabs/Tabs";
 
 function App() {
   return (
     <div className="app">
-      <Modal id="contact-modal">
-        <Modal.Trigger>
-          <button>Open</button>
-        </Modal.Trigger>
-        <Modal.Content>
-          <Modal.Header>Contact form</Modal.Header>
-          <Modal.Description>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Porro
-            laudantium ipsa ratione deleniti accusantium ea ipsum placeat
-            provident, perferendis, tempora minus animi saepe vero aliquam quia
-            quidem praesentium deserunt molestias
-          </Modal.Description>
-
-          <Modal.Footer>
-            <button>Close</button>
-          </Modal.Footer>
-        </Modal.Content>
-      </Modal>
+      <Tabs>
+        <TabsHeader>
+          <Tab id="1">
+            <button>Tab 1</button>
+          </Tab>
+          <Tab id="2">
+            <button>Tab 2</button>
+          </Tab>
+          <Tab id="3">
+            <button>Tab 3</button>
+          </Tab>
+        </TabsHeader>
+        <TabsContent>
+          <TabPanel whenActive="1">
+            <div>
+              Tab 1 Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Harum corporis, maiores optio voluptates dolore repudiandae eius
+              vitae eaque deleniti, iste deserunt modi placeat dolor recusandae,
+              molestias pariatur delectus numquam quo.
+            </div>
+          </TabPanel>
+          <TabPanel whenActive="2">
+            <div>
+              Tab 2 Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Harum corporis, maiores optio voluptates dolore repudiandae eius
+              vitae eaque deleniti, iste deserunt modi placeat dolor recusandae,
+              molestias pariatur delectus numquam quo.
+            </div>
+          </TabPanel>
+          <TabPanel whenActive="3">
+            <div>
+              Tab 3 Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Harum corporis, maiores optio voluptates dolore repudiandae eius
+              vitae eaque deleniti, iste deserunt modi placeat dolor recusandae,
+              molestias pariatur delectus numquam quo.
+            </div>
+          </TabPanel>
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }

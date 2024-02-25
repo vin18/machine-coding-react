@@ -1,0 +1,26 @@
+.modal-container {
+  background-color: lightgray;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s;
+}
+
+.modal {
+  background-color: white;
+  color: black;
+  width: 600px;
+  padding: 10px 20px;
+  border-radius: 2px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s;
+}
+
+.modal-close {
+  display: none;
+}

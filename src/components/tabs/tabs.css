@@ -1,0 +1,15 @@
+.tabs__container {
+  max-width: 500px;
+  padding: 10px;
+}
+
+.tabs__header {
+  display: flex;
+}
+
+.tabs__tab-title {
+  border: 1px solid black;
+  padding: 5px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
