@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 
-function Comment({ comment, onDelete }) {
+function Comment({ comment, onDelete, onEdit }) {
   const imageId = Math.floor(Math.random() * 5);
 
   return (
@@ -18,24 +18,30 @@ function Comment({ comment, onDelete }) {
             <p className="font-semibold">{comment.name}</p>
           </div>
         </div>
+        <>
+          <div className="pl-10">
+            <p className="text-sm">{comment.comment}</p>
+          </div>
 
-        <div className="pl-10">
-          <p className="text-sm">{comment.comment}</p>
-        </div>
-
-        <div className="pl-10 space-x-2 text-xs mt-1">
-          <button
-            type="submit"
-            onClick={() => onDelete(comment.id)}
-            className="text-red-500 font-semibold hover:underline"
-          >
-            Delete
-          </button>
-        </div>
+          <div className="pl-10 space-x-2 text-xs mt-1">
+            <button
+              type="submit"
+              onClick={() => onDelete(comment.id)}
+              className="text-red-500 font-semibold hover:underline"
+            >
+              Delete
+            </button>
+          </div>
+        </>
 
         <div className="ml-10 mt-5">
           {comment.replies.map((comment) => (
-            <Comment key={comment.id} comment={comment} onDelete={onDelete} />
+            <Comment
+              key={comment.id}
+              comment={comment}
+              onDelete={onDelete}
+              onEdit={onEdit}
+            />
           ))}
         </div>
       </div>

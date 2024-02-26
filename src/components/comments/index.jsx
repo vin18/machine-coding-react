@@ -6,9 +6,12 @@ import commentsData from "../../data/commentsData";
 import AddComment from "./AddComment";
 import CommentsList from "./CommentsList";
 
+const SESSION_STORAGE_KEY = "nested-comments";
+
 function NestedComments() {
   const [comments, setComments] = useState(
-    () => JSON.parse(sessionStorage.getItem("nested-comments")) ?? commentsData
+    () =>
+      JSON.parse(sessionStorage.getItem(SESSION_STORAGE_KEY)) ?? commentsData
   );
 
   const handleAddComment = (comment) => {
@@ -21,7 +24,7 @@ function NestedComments() {
 
     const commentsToAdd = [commentPayload, ...comments];
     setComments(commentsToAdd);
-    sessionStorage.setItem("nested-comments", JSON.stringify(commentsToAdd));
+    sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(commentsToAdd));
   };
 
   const handleDelete = (commentId) => {
@@ -40,6 +43,7 @@ function NestedComments() {
     findAndDelete(commentId);
 
     setComments(cloneComments);
+    sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(cloneComments));
   };
 
   return (
