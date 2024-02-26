@@ -30,17 +30,35 @@ function NestedComments() {
   const handleDelete = (commentId) => {
     const cloneComments = [...comments];
 
-    const findAndDelete = (commentId) => {
+    const findAndDelete = (cloneComments, commentId) => {
       cloneComments.map((comment) => {
         if (comment.id === commentId) {
           const index = cloneComments.indexOf(comment);
           cloneComments.splice(index, 1);
-        } else if (cloneComments.replies && cloneComments.replies.length > 0) {
+        } else if (comment.replies.length > 0) {
           findAndDelete(comment.replies, commentId);
         }
       });
     };
-    findAndDelete(commentId);
+    findAndDelete(cloneComments, commentId);
+
+    setComments(cloneComments);
+    sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(cloneComments));
+  };
+
+  const handleReply = (parentId, commentPayload) => {
+    const cloneComments = [...comments];
+
+    const findAndReply = (cloneComments, parentId) => {
+      cloneComments.map((comment) => {
+        if (comment.id === parentId) {
+          comment.replies.push(commentPayload);
+        } else if (comment.replies.length > 0) {
+          findAndReply(comment.replies, parentId);
+        }
+      });
+    };
+    findAndReply(cloneComments, parentId);
 
     setComments(cloneComments);
     sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(cloneComments));
@@ -49,7 +67,11 @@ function NestedComments() {
   return (
     <div className="p-12">
       <AddComment onAdd={handleAddComment} />
-      <CommentsList comments={comments} onDelete={handleDelete} />
+      <CommentsList
+        comments={comments}
+        onDelete={handleDelete}
+        onReply={handleReply}
+      />
     </div>
   );
 }

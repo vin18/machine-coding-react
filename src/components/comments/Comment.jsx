@@ -1,6 +1,21 @@
 /* eslint-disable react/prop-types */
 
-function Comment({ comment, onDelete, onEdit }) {
+import { useState } from "react";
+import AddComment from "./AddComment";
+
+function Comment({ comment, onDelete, onReply }) {
+  const [isReplying, setIsReplying] = useState(false);
+
+  const handleReply = (parentId, comment) => {
+    const commentPayload = {
+      id: Date.now(),
+      name: "Guest User",
+      comment,
+      replies: [],
+    };
+    onReply(parentId, commentPayload);
+  };
+
   const imageId = Math.floor(Math.random() * 5);
 
   return (
@@ -26,6 +41,13 @@ function Comment({ comment, onDelete, onEdit }) {
           <div className="pl-10 space-x-2 text-xs mt-1">
             <button
               type="submit"
+              onClick={() => setIsReplying(!isReplying)}
+              className="text-blue-500 font-semibold hover:underline"
+            >
+              Reply
+            </button>
+            <button
+              type="submit"
               onClick={() => onDelete(comment.id)}
               className="text-red-500 font-semibold hover:underline"
             >
@@ -34,13 +56,24 @@ function Comment({ comment, onDelete, onEdit }) {
           </div>
         </>
 
+        {isReplying && (
+          <div className="ml-10 my-2">
+            <AddComment
+              onReply={handleReply}
+              onClose={() => setIsReplying(false)}
+              showCancel={true}
+              parentId={comment.id}
+            />
+          </div>
+        )}
+
         <div className="ml-10 mt-5">
           {comment.replies.map((comment) => (
             <Comment
               key={comment.id}
               comment={comment}
               onDelete={onDelete}
-              onEdit={onEdit}
+              onReply={onReply}
             />
           ))}
         </div>
