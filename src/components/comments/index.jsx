@@ -83,8 +83,11 @@ function NestedComments() {
   };
 
   return (
-    <div className="p-12">
-      <AddComment onAdd={handleAddComment} />
+    <div className="px-12 py-6">
+      <h1 className="text-xl font-bold mb-2">Nested Comments🚀</h1>
+      <div className="mb-8">
+        <AddComment onAdd={handleAddComment} />
+      </div>
       <CommentsList
         comments={comments}
         onDelete={handleDelete}

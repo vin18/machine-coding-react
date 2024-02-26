@@ -24,24 +24,26 @@ function AddComment({
     onEdit && onEdit(commentId, comment);
     onReply && onReply(parentId, comment);
     onClose && onClose();
+
     setComment("");
   };
 
   return (
-    <div className="mb-8">
+    <div>
       <form onSubmit={handleAddComment}>
         <input
           type="text"
           placeholder="Post a comment.."
-          className="bg-gray-200 px-4 py-2 rounded w-64"
+          className="bg-gray-200 px-3 h-9 rounded w-64"
           onChange={(e) => setComment(e.target.value)}
           value={comment}
+          onBlur={onClose}
         />
         <button
           type="submit"
-          className={`text-sm bg-purple-700 text-purple-100 px-4 py-2 rounded ml-2 hover:bg-purple-800`}
+          className={`text-sm bg-purple-700 text-purple-100 px-4 h-9 rounded ml-2 hover:bg-purple-800`}
         >
-          Add Comment
+          Comment
         </button>
         {showCancel && (
           <button

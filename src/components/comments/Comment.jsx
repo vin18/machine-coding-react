@@ -8,6 +8,7 @@ function Comment({ comment, onDelete, onReply, onEdit }) {
   const [isEditing, setIsEditing] = useState(false);
 
   const handleReply = (parentId, comment) => {
+    setIsEditing(false);
     const commentPayload = {
       id: Date.now(),
       name: "Guest User",
@@ -18,6 +19,7 @@ function Comment({ comment, onDelete, onReply, onEdit }) {
   };
 
   const handleEdit = (commentId, comment) => {
+    setIsReplying(false);
     onEdit(commentId, comment);
     setIsEditing(false);
   };
@@ -41,39 +43,13 @@ function Comment({ comment, onDelete, onReply, onEdit }) {
         </div>
 
         {!isEditing && (
-          <>
-            <div className="pl-10">
-              <p className="text-sm">{comment.comment}</p>
-            </div>
-
-            <div className="pl-10 space-x-2 text-xs mt-1">
-              <button
-                type="submit"
-                onClick={() => setIsEditing(!isEditing)}
-                className="text-blue-500 font-semibold hover:underline"
-              >
-                Edit
-              </button>
-              <button
-                type="submit"
-                onClick={() => setIsReplying(!isReplying)}
-                className="text-blue-500 font-semibold hover:underline"
-              >
-                Reply
-              </button>
-              <button
-                type="submit"
-                onClick={() => onDelete(comment.id)}
-                className="text-red-500 font-semibold hover:underline"
-              >
-                Delete
-              </button>
-            </div>
-          </>
+          <div className="pl-10">
+            <p className="text-sm">{comment.comment}</p>
+          </div>
         )}
 
         {isEditing && (
-          <div className="ml-10 my-2">
+          <div className="ml-10">
             <AddComment
               onEdit={handleEdit}
               onClose={() => setIsReplying(false)}
@@ -83,6 +59,36 @@ function Comment({ comment, onDelete, onReply, onEdit }) {
             />
           </div>
         )}
+
+        <div className="pl-10 space-x-2 text-xs mt-1">
+          <button
+            type="submit"
+            onClick={() => {
+              setIsEditing(!isEditing);
+              setIsReplying(false);
+            }}
+            className="text-blue-500 font-semibold hover:underline"
+          >
+            Edit
+          </button>
+          <button
+            type="submit"
+            onClick={() => {
+              setIsReplying(!isReplying);
+              setIsEditing(false);
+            }}
+            className="text-blue-500 font-semibold hover:underline"
+          >
+            Reply
+          </button>
+          <button
+            type="submit"
+            onClick={() => onDelete(comment.id)}
+            className="text-red-500 font-semibold hover:underline"
+          >
+            Delete
+          </button>
+        </div>
 
         {isReplying && (
           <div className="ml-10 my-2">
