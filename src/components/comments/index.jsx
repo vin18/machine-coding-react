@@ -7,17 +7,21 @@ import AddComment from "./AddComment";
 import CommentsList from "./CommentsList";
 
 function NestedComments() {
-  const [comments, setComments] = useState(commentsData);
+  const [comments, setComments] = useState(
+    () => JSON.parse(sessionStorage.getItem("nested-comments")) ?? commentsData
+  );
 
   const handleAddComment = (comment) => {
     const commentPayload = {
       id: Date.now(),
-      name: "Test User",
+      name: "Guest User",
       comment,
       replies: [],
     };
 
-    setComments([commentPayload, ...comments]);
+    const commentsToAdd = [commentPayload, ...comments];
+    setComments(commentsToAdd);
+    sessionStorage.setItem("nested-comments", JSON.stringify(commentsToAdd));
   };
 
   const handleDelete = (commentId) => {

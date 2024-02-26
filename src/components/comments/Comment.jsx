@@ -1,13 +1,15 @@
 /* eslint-disable react/prop-types */
 
 function Comment({ comment, onDelete }) {
+  const imageId = Math.floor(Math.random() * 5);
+
   return (
     <div>
       <div className="mb-5">
         <div className="flex items-center space-x-2">
           <div>
             <img
-              src="https://www.redditstatic.com/avatars/defaults/v2/avatar_default_4.png"
+              src={`https://www.redditstatic.com/avatars/defaults/v2/avatar_default_${imageId}.png`}
               alt="User profile picture"
               className="w-8 rounded-full"
             />
