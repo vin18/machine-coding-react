@@ -3,8 +3,9 @@
 import { useState } from "react";
 import AddComment from "./AddComment";
 
-function Comment({ comment, onDelete, onReply }) {
+function Comment({ comment, onDelete, onReply, onEdit }) {
   const [isReplying, setIsReplying] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
 
   const handleReply = (parentId, comment) => {
     const commentPayload = {
@@ -14,6 +15,11 @@ function Comment({ comment, onDelete, onReply }) {
       replies: [],
     };
     onReply(parentId, commentPayload);
+  };
+
+  const handleEdit = (commentId, comment) => {
+    onEdit(commentId, comment);
+    setIsEditing(false);
   };
 
   const imageId = Math.floor(Math.random() * 5);
@@ -33,28 +39,50 @@ function Comment({ comment, onDelete, onReply }) {
             <p className="font-semibold">{comment.name}</p>
           </div>
         </div>
-        <>
-          <div className="pl-10">
-            <p className="text-sm">{comment.comment}</p>
-          </div>
 
-          <div className="pl-10 space-x-2 text-xs mt-1">
-            <button
-              type="submit"
-              onClick={() => setIsReplying(!isReplying)}
-              className="text-blue-500 font-semibold hover:underline"
-            >
-              Reply
-            </button>
-            <button
-              type="submit"
-              onClick={() => onDelete(comment.id)}
-              className="text-red-500 font-semibold hover:underline"
-            >
-              Delete
-            </button>
+        {!isEditing && (
+          <>
+            <div className="pl-10">
+              <p className="text-sm">{comment.comment}</p>
+            </div>
+
+            <div className="pl-10 space-x-2 text-xs mt-1">
+              <button
+                type="submit"
+                onClick={() => setIsEditing(!isEditing)}
+                className="text-blue-500 font-semibold hover:underline"
+              >
+                Edit
+              </button>
+              <button
+                type="submit"
+                onClick={() => setIsReplying(!isReplying)}
+                className="text-blue-500 font-semibold hover:underline"
+              >
+                Reply
+              </button>
+              <button
+                type="submit"
+                onClick={() => onDelete(comment.id)}
+                className="text-red-500 font-semibold hover:underline"
+              >
+                Delete
+              </button>
+            </div>
+          </>
+        )}
+
+        {isEditing && (
+          <div className="ml-10 my-2">
+            <AddComment
+              onEdit={handleEdit}
+              onClose={() => setIsReplying(false)}
+              showCancel={true}
+              defaultText={comment.comment}
+              commentId={comment.id}
+            />
           </div>
-        </>
+        )}
 
         {isReplying && (
           <div className="ml-10 my-2">
@@ -74,6 +102,7 @@ function Comment({ comment, onDelete, onReply }) {
               comment={comment}
               onDelete={onDelete}
               onReply={onReply}
+              onEdit={onEdit}
             />
           ))}
         </div>

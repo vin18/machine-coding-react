@@ -27,6 +27,24 @@ function NestedComments() {
     sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(commentsToAdd));
   };
 
+  const handleEdit = (commentId, commentToEdit) => {
+    const cloneComments = [...comments];
+
+    const findAndEdit = (cloneComments, commentId) => {
+      cloneComments.map((comment) => {
+        if (comment.id === commentId) {
+          comment.comment = commentToEdit;
+        } else if (comment.replies.length > 0) {
+          findAndEdit(comment.replies, commentId);
+        }
+      });
+    };
+    findAndEdit(cloneComments, commentId);
+
+    setComments(cloneComments);
+    sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(cloneComments));
+  };
+
   const handleDelete = (commentId) => {
     const cloneComments = [...comments];
 
@@ -71,6 +89,7 @@ function NestedComments() {
         comments={comments}
         onDelete={handleDelete}
         onReply={handleReply}
+        onEdit={handleEdit}
       />
     </div>
   );

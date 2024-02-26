@@ -1,8 +1,17 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 
-function AddComment({ onAdd, onReply, onClose, showCancel, parentId }) {
-  const [comment, setComment] = useState("");
+function AddComment({
+  onAdd,
+  onEdit,
+  onReply,
+  onClose,
+  showCancel,
+  parentId,
+  commentId,
+  defaultText = "",
+}) {
+  const [comment, setComment] = useState(defaultText);
 
   const handleAddComment = (event) => {
     event.preventDefault();
@@ -12,6 +21,7 @@ function AddComment({ onAdd, onReply, onClose, showCancel, parentId }) {
     }
 
     onAdd && onAdd(comment);
+    onEdit && onEdit(commentId, comment);
     onReply && onReply(parentId, comment);
     onClose && onClose();
     setComment("");
