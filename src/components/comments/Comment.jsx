@@ -21,7 +21,6 @@ function Comment({ comment, onDelete, onReply, onEdit }) {
   const handleEdit = (commentId, comment) => {
     setIsReplying(false);
     onEdit(commentId, comment);
-    setIsEditing(false);
   };
 
   const imageId = Math.floor(Math.random() * 5);
@@ -52,7 +51,7 @@ function Comment({ comment, onDelete, onReply, onEdit }) {
           <div className="ml-10">
             <AddComment
               onEdit={handleEdit}
-              onClose={() => setIsReplying(false)}
+              onClose={() => setIsEditing(false)}
               showCancel={true}
               defaultText={comment.comment}
               commentId={comment.id}

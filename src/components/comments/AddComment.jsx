@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
+import useOutsideClick from "../../hooks/useOutsideClick";
 
 function AddComment({
   onAdd,
@@ -37,7 +38,6 @@ function AddComment({
           className="bg-gray-200 px-3 h-9 rounded w-64"
           onChange={(e) => setComment(e.target.value)}
           value={comment}
-          onBlur={onClose}
         />
         <button
           type="submit"
