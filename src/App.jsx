@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import NestedComments from "./pages/CommentsPage";
 import Tabs from "./pages/TabsPage";
@@ -9,6 +9,7 @@ function App() {
     <div>
       <BrowserRouter>
         <Routes>
+          <Route index element={<Navigate replace to="nested-comments" />} />
           <Route path="nested-comments" element={<NestedComments />} />
           <Route path="tabs" element={<Tabs />} />
           <Route path="nested" element={<Modal />} />
